@@ -1,0 +1,7 @@
+WhatGetsMeOutOfBedIntent what's gets me out of bed
+WhatGetsMeOutOfBedIntent what's gets Sam out of bed
+WhatGetsMeOutOfBedIntent what else gets me out of bed
+WhatGetsMeOutOfBedIntent what else gets Sam out of bed
+
+WhatGetsMeOutOfBedIntent what else
+WhatGetsMeOutOfBedIntent another

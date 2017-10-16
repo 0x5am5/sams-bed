@@ -1,0 +1,6 @@
+{
+  "intents": [
+    { "intent": "WhatGetsMeOutOfBedIntent" },
+    { "intent": "AMAZON.HelpIntent" }
+  ]
+}
