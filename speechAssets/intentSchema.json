@@ -1,6 +1,9 @@
 {
   "intents": [
     { "intent": "WhatGetsMeOutOfBedIntent" },
-    { "intent": "AMAZON.HelpIntent" }
+    { "intent": "RestIntent" },
+    { "intent": "AMAZON.HelpIntent" },
+    { "intent": "AMAZON.CancelIntent" },
+    { "intent": "AMAZON.StopIntent" }
   ]
 }

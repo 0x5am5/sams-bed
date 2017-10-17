@@ -5,3 +5,5 @@ WhatGetsMeOutOfBedIntent what else gets Sam out of bed
 
 WhatGetsMeOutOfBedIntent what else
 WhatGetsMeOutOfBedIntent another
+
+RestIntent tell me everything that gets Sam out of bed

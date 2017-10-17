@@ -1,20 +1,16 @@
 'use strict';
 const Alexa = require('alexa-sdk');
 
-//=========================================================================================================================================
-//TODO: The items below this comment need your attention.
-//=========================================================================================================================================
-
 const APP_ID = 'amzn1.ask.skill.38be72ca-9b48-44d3-9947-d6b6860b96a6';
 const SKILL_NAME = 'Sam\'s Bed';
 const HELP_MESSAGE = 'You can say tell me a space fact, or, you can say exit... What can I help you with?';
 const HELP_REPROMPT = 'What can I help you with?';
 const STOP_MESSAGE = 'Goodbye!';
 const GET_FACT_MESSAGE = 'Something ';
+const END_OF_FACT_MESSAGE = 'You\'ve heard just about everything that gets Sam out of bed in the morning. Would you like to hear them again?';
+var factIndex = 0;
+var factEnd = false;
 
-//=========================================================================================================================================
-//TODO: Replace this data with your own.  You can find translations of this data at http://github.com/alexa/skill-sample-node-js-fact/data
-//=========================================================================================================================================
 const data = [
     'different.',
     'creative.',
@@ -24,10 +20,6 @@ const data = [
     'fun.'
 ];
 
-//=========================================================================================================================================
-//Editing anything below this line might break your skill.
-//=========================================================================================================================================
-
 exports.handler = function(event, context, callback) {
     var alexa = Alexa.handler(event, context);
     alexa.appId = APP_ID;
@@ -35,18 +27,41 @@ exports.handler = function(event, context, callback) {
     alexa.execute();
 };
 
+function setFactIndex() {
+    if(factIndex > data.length) {
+        factIndex = 0;
+    }
+
+    factIndex++;
+}
+
 const handlers = {
     'LaunchRequest': function () {
+        factIndex = 0;
         this.emit('WhatGetsMeOutOfBedIntent');
     },
     'WhatGetsMeOutOfBedIntent': function () {
         const factArr = data;
-        const factIndex = Math.floor(Math.random() * factArr.length);
         const randomFact = factArr[factIndex];
         const speechOutput = GET_FACT_MESSAGE + randomFact;
 
         this.response.cardRenderer(SKILL_NAME, randomFact);
         this.response.speak(speechOutput);
+        setFactIndex();
+        this.emit(':responseReady');
+    },
+    'RestIntent': function () {
+        const factArr = data;
+        var speechOutput = '';
+
+        for(let i = factIndex; i <= factArr.length; i++) {
+            speechOutput += GET_FACT_MESSAGE + factArr[i];
+        }
+
+        this.response.cardRenderer(SKILL_NAME, 'All facts');
+        this.response.speak(speechOutput);
+        factIndex = factArr.length + 1;
+        setFactIndex();
         this.emit(':responseReady');
     },
     'AMAZON.HelpIntent': function () {
